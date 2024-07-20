@@ -1,0 +1,134 @@
+:root {
+    --clr-white: hsl(0, 0, 100, 1);
+    --clr-black: hsl(100, 100, 0, 1);
+    --clr-grey: hsl(0, 0%, 48%);
+
+    --ff-primary: "Poppins", sans-serif;
+
+    --fs-400: 1rem;
+    --fs-500: clamp(1.2rem, 3vw, 1.75rem);
+    --fs-600: clamp(2rem, 5vw, 3rem);
+    --fs-700: clamp(3rem, 7vw, 4rem);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  view-transition-name: none;
+}
+
+body, h1, h2, p, figure {
+  margin-block: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  overflow: hidden; 
+  display: grid;
+  place-content: center;
+} 
+
+main {
+  position: relative;
+  display: grid;
+  place-content: center;
+}
+
+.gallery {
+  max-width: 800px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.thumbnail {
+  cursor: pointer;
+}
+
+.lightbox {
+  position: absolute;
+  inset: -5%;
+  z-index: -100;
+  cursor: pointer;
+  view-transition-name: lightbox;
+}
+
+.lightbox:has(.lightbox-image figcaption) {
+  z-index: 1;
+}
+
+.lightbox-image {
+  margin: 0;
+  font-family: var(--ff-primary);
+  font-weight: 700;
+
+  a {
+    color: var(--clr-grey);
+
+    &:hover {
+      color: purple;
+    }
+  }
+
+  figcaption {
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 900px) {
+    figcaption {
+      text-align: center;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0;}
+  to { opacity: 1;}
+}
+
+@keyframes fade-out {
+  from { opacity: 1;}
+  to { opacity: 0;}
+}
+
+@keyframes slide-up {
+  from { transform: translateY(5rem) }
+  to { transform: translateY(0) }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(0) }
+  to { transform: translateY(5rem) }
+}
+
+::view-transition-new(lightbox) {
+  animation: 300ms ease 50ms both fade-in, 
+    300ms ease 50ms both slide-up; 
+}
+
+::view-transition-old(lightbox) {
+  animation: 300ms ease 50ms both fade-out, 
+    300ms ease 50ms both slide-down; 
+}
